@@ -10,14 +10,9 @@ We will be using Scrapli to issue an RPC call to our firewalls to receive inform
 
 This project has an example for both synchronous and asynchronous communications, `app.py` and `app_sync.py` respectively.
 
-
-"""
-Jinja2 will be used to template our output files, but we need to set some parameters:
-  - have the system look in our folder `templates`
-  - trim whitespace new lines created by default
-  - tell the system we want to base our file on template `test.j2`
-"""
-
+-----------
+Explanation
+-----------
 
 .. code-block:: python
 
@@ -27,6 +22,17 @@ Jinja2 will be used to template our output files, but we need to set some parame
     from scrapli_netconf.driver import AsyncNetconfDriver
     from scrapli.logging import enable_basic_logging
     from jinja2 import Environment, FileSystemLoader
+
+
+We need to import some functionality into our script:
+  - `asyncio` will enable our script to be executed in an async, non-io blocking manner
+  - `xmltodict` will simplify the conversion of our XML object into a Python dictionary object
+  - `AsyncNetconfDriver` is our primary method of interacting with Scrapli's transport system
+  - `enable_basic_logging` will write simple logs to the localhost
+  - `jinja2` is our way of templating the output into something more appropriate for a file
+
+
+.. code-block:: python
 
     # Enable logging. Create a log file in the current directory.
     enable_basic_logging(file=True, level="debug")
