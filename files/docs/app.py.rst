@@ -106,20 +106,41 @@ Here we define our asynchronous function that will handle the connections to our
 
 .. code-block:: python
 
-    # primary function
     async def main():
-        """Function to gather coroutines, await them and print results"""
         coroutines = [gather_security_zones(device) for device in DEVICES]
         results = await asyncio.gather(*coroutines)
+
+
+The beginning of our primary function has a bit going on for itself.
+  - loop over the `DEVICES` list object and run each `device` through our `gather_security_zones` function
+  - we store these in a list object called `coroutines`
+  - asyncio executes the `gather` method and we pass in the `coroutines` object into it
+  - the responses received are stored in an object called `results`
+
+
+.. code-block:: python
+
         for each in results:
             reply_as_dict = xmltodict.parse(each.result)
             security_zones = reply_as_dict["rpc-reply"]["zones-information"]["zones-security"]
 
-            # template output with jinja2 and save to file
             output_from_parsed_template = template.render(security_zones=security_zones)
             with open(f"./output/{each.host}.yaml", "w") as fh:
                 fh.write(output_from_parsed_template)
 
+
+Remember that our `results` object is a list of responses from our network devices. Let's open that up and write each into a seperate file.
+  - loop over the `results` object
+  - parse the XML payload received from the device into a python dictionary-like object
+  - create a new object called `security_zones` and store the value for ["rpc-reply"]["zones-information"]["zones-security"]
+  - happy with the data we have, we run the object through the Jinja2 template we defined earlier
+  - a new file is created, named after the device's `host` paramter, and our jinja2 templated output is written to disk
+
+
+.. code-block:: python
+
     if __name__ == "__main__":
         asyncio.get_event_loop().run_until_complete(main())
 
+
+Here we instantiate our main function by passing it through async.io's `get_event_loop`
