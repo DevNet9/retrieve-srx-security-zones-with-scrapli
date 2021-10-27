@@ -69,8 +69,8 @@ We want to turn on logging right out the gate, so we call the imported `enable_b
 
 We take this opportunity to create some objects that define our parameters.
   - define two network devices, `GALVESTON` and `SANANTONIO`
-  - create a new list called `DEVICES` and places these two devices in there
-  - our request for the security zones is embedded in an object called `RPC`
+  - create a new list called `DEVICES` and place these two devices in there
+  - our request for information on the security zones is embedded in an object called `RPC`
 
 
 .. code-block:: python
@@ -80,7 +80,14 @@ We take this opportunity to create some objects that define our parameters.
     template = env.get_template('test.j2')
 
 
-    # async function to open a connection and return the output of our RPC
+We will want to write the output to a file, but we can do ourselves a favor by running the output through a template engine first. We will use Jinja2 parameters to tell the script where to find
+  - the template folder
+  - trim the empty white spaces
+  - which template file to run our response through 
+
+
+.. code-block:: python
+
     async def gather_security_zones(device):
         conn = AsyncNetconfDriver(**device)
         await conn.open()
@@ -88,6 +95,16 @@ We take this opportunity to create some objects that define our parameters.
         await conn.close()
         return result
 
+
+Here we define our asynchronous function that will handle the connections to our network devices.
+  - we create an object called `conn` that will store our connection parameters into the `AsyncNetconfDriver`
+  - our connections are opened and we `await` for the responses
+  - the NETCONF API call `RPC` is sent to each open connection with the `rpc` method; response is stored as `result`
+  - connections to our devices need to be closed, so we again use the `conn` object but this time with the `close` method
+  - `result` is returned to the `main` function (defined below)
+
+
+.. code-block:: python
 
     # primary function
     async def main():
