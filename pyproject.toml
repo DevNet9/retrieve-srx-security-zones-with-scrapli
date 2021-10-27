@@ -11,6 +11,8 @@ scrapli-netconf = "^2021.7.30"
 invoke = "^1.6.0"
 asyncio = "^3.4.3"
 asyncssh = "^2.7.2"
+xmltodict = "^0.12.0"
+Jinja2 = "^3.0.2"
 
 [tool.poetry.dev-dependencies]
 

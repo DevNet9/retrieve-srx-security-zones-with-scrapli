@@ -1,0 +1,6 @@
+  - "DMZ_LAB"
+  - "HOME"
+  - "WAN"
+  - "trust"
+  - "untrust"
+  - "junos-host"
