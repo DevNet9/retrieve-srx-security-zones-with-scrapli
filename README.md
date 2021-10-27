@@ -16,7 +16,8 @@ Let's take a second to review the documentation in the `files/docs/` directory.
 
 Name | Description
 ---- | -----------
-[Scrapli](files/docs/app.py.rst) | Retrieve security zone information from SRX
+[app_async.py](files/docs/app_async.py.rst) | Retrieve security zone information from SRX with `asyncio`
+[app_sync.py](files/docs/app_sync.py.rst) | Retrieve security zone information from a single SRX
 
 ## 📝 `Dependencies`
 

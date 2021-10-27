@@ -38,26 +38,32 @@ Always, always, always strive to use virtual environments when working with Pyth
 .. image:: ../images/pip_install.png
    :width: 600
 
----------------------------------
-Install Juniper's Ansible modules
----------------------------------
 
-This is a one-time setup and should be skipped in additional playbook executions.
+==============
+Execute script
+==============
 
-We will change into the directory containing our Ansible files, run our Ansible Galaxy install command to install the Ansible modules from Galaxy.
+Execute either the synchronous or asynchronous script after you have updated them with your device parameters
 
-.. code-block:: bash
-    $ cd files/ansible
-    $ ansible-galaxy install juniper.junos --roles-path ./
-
-.. image:: ../images/ansible_install.png
-   :width: 600
-
-================
-Execute playbook
-================
-
-Execute the playbook, making sure to reference the inventory file for our environment in another directory.
 
 .. code-block:: bash
-    $ ansible-playbook pb.get.security_zones.yaml -i ../docker/inventory.yaml
+
+    $ cd files/scrapli
+
+    $ ls -ls output
+    total 0
+
+    $ python app_async.py
+    
+    $ ls -ls output 
+    total 8
+    4 -rw-rw-r-- 1 cdot cdot 78 Oct 27 10:19 192.168.105.137.yaml
+    4 -rw-rw-r-- 1 cdot cdot 78 Oct 27 10:19 192.168.105.146.yaml
+
+    $ cat output/192.168.105.146.yaml 
+        - "DMZ_LAB"
+        - "HOME"
+        - "WAN"
+        - "trust"
+        - "untrust"
+        - "junos-host"
