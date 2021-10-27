@@ -47,8 +47,9 @@ Execute either the synchronous or asynchronous script after you have updated the
 
 
 .. code-block:: bash
+
     $ cd files/scrapli
-    
+
     $ ls -ls output
     total 0
 
