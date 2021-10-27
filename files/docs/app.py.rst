@@ -37,6 +37,12 @@ We need to import some functionality into our script:
     # Enable logging. Create a log file in the current directory.
     enable_basic_logging(file=True, level="debug")
 
+
+We want to turn on logging right out the gate, so we call the imported `enable_basic_logging` method after passing in two parameters: `file` and `level`
+
+
+.. code-block:: python
+
     GALVESTON = {
         "host": "192.168.105.137",
         "auth_username": "scrapli",
@@ -60,6 +66,14 @@ We need to import some functionality into our script:
     </get-zones-information>
     """
 
+
+We take this opportunity to create some objects that define our parameters.
+  - define two network devices, `GALVESTON` and `SANANTONIO`
+  - create a new list called `DEVICES` and places these two devices in there
+  - our request for the security zones is embedded in an object called `RPC`
+
+
+.. code-block:: python
 
     # jinja2 parameters
     env = Environment(loader=FileSystemLoader('templates'),trim_blocks=True)
